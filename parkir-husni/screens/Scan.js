@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import db from '../firebase/index'
@@ -25,10 +25,10 @@ export default class Scan extends React.Component {
     const { hasCameraPermission, scanned } = this.state;
 
     if (hasCameraPermission === null) {
-      return <Text>Requesting for camera permission</Text>;
+      return <View style={{flex:1, justifyContent:'center',alignItems:'center'}}><ActivityIndicator /></View>;
     }
     if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
+      return <View style={{flex:1, justifyContent:'center',alignItems:'center'}}><Text>No access to camera</Text></View>;
     }
     return (
       <View
@@ -52,7 +52,6 @@ export default class Scan extends React.Component {
 
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true });
-    console.log(data.slice(0,33),'=========')
     if(data.slice(0,33) === 'http://192.168.0.110:3000/create/'){
       db.collection('parkings')
         .add({
@@ -61,7 +60,6 @@ export default class Scan extends React.Component {
         })
         .then((data) => {
             // props.history.replace('/user/'+data.id)
-            // console.log(data)
             this.props.navigation.navigate('Home',{
               data: data.id
             })
@@ -71,12 +69,11 @@ export default class Scan extends React.Component {
   test = ({data}) => {
     db.collection('parkings')
         .add({
-            date: JSON.stringify(new Date()),
+            date: new Date(),
             nopol: null
         })
         .then((data) => {
             // props.history.replace('/user/'+data.id)
-            // console.log(data.id)
             this.props.navigation.navigate('Home',{
               data:data.id
             })

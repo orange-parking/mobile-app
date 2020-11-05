@@ -24,7 +24,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.orange.parking",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.881669296476-c39eghkn8o3t0qbjl3d6dkgvu5cpqgch"
+        }
+      }
+    },
+    "android": {
+      "package": "com.orange.parking",
+      "googleServicesFile": "./google-services.json"
     }
   }
 }

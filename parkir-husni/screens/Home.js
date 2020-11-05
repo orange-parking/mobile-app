@@ -21,14 +21,13 @@ const Home = (props) => {
     useEffect(() => {
         setLoading(true)
         if(props.navigation.state.params){
-            alert(props.navigation.state.params.data)
+            // alert(props.navigation.state.params.data)
             let id = props.navigation.state.params.data
             setQr(id)
             AsyncStorage.setItem('parkId',id)
             .then(() => {
                 AsyncStorage.getItem('parkId')
                 .then((id) => {
-                    console.log(id,'opopopopopopop')
                     setLoading(false)
                 })
             })
@@ -40,7 +39,6 @@ const Home = (props) => {
         // if(!props.navigation.state.params){
             AsyncStorage.getItem('parkId')
                 .then((id) => {
-                    console.log(id,'pppppppppppp')
                     db
                     .collection('parkings')
                     .doc(id)
@@ -75,7 +73,7 @@ const Home = (props) => {
                         <QRCode
                         value={qr}
                         size={200}
-                        bgColor='purple'
+                        bgColor='orange'
                         fgColor='white'/>
                     </View>
             }
